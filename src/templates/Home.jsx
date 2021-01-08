@@ -1,11 +1,19 @@
 import React from "react";
+import { getUserId, getUsername } from "../reducks/users/selectors";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const selector = useSelector((state) => state); //state全体のsteteを渡す
+  const uid = getUserId(selector);
+  const username = getUsername(selector);
+
   return (
     <div>
       <h2>Home</h2>
+      <p>ユーザーID: {uid}</p>
+      <p>ユーザーネーム: {username}</p>
     </div>
-  )
+  );
 };
 
 export default Home;

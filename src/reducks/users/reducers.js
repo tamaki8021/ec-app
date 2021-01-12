@@ -15,6 +15,10 @@ export const UsersReducer = (state = initialState.users, action) => {
                               username: userState.username,*/ 
     // stateの中身がpayloadに上書きされる
         };
+      case Actions.SIGN_OUT:
+        return {
+          ...action.payload
+        };
       default:
         return state
     }

@@ -25,3 +25,6 @@ yarn-error.log*
 # Firebase files
 firestore.rules
 src/firebase/config.js
+
+# eslint
+.eslintcache

@@ -1,16 +1,23 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { TextInput, SelectBox, PrimaryButton } from "../components/UIkit";
 import { useDispatch } from "react-redux";
 import { saveProduct } from "../reducks/products/operation";
-import ImageArea from "../components/Products/imageArea";
+import ImageArea from "../components/Products/ImageArea";
+import {db} from "../firebase/index"
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
 
+  let id = window.location.pathname.split('/product/edit')[1];
+
+  if (id !== "") {
+      id = id.split('/')[1]
+  }
+
   const [name, setName] = useState(""),
     [description, setDescription] = useState(""),
     [category, setCategory] = useState(""),
-    [gender, setGendr] = useState(""),
+    [gender, setGender] = useState(""),
     [images, setImages] = useState([]),
     [price, setPrice] = useState("");
 
@@ -48,6 +55,21 @@ const ProductEdit = () => {
     { id: "male", name: "男性" },
     { id: "female", name: "女性" },
   ];
+  
+  useEffect(()  => {
+      if (id !== "") {
+        db.collection('products').doc(id).get().then(snapshot => {
+          const data = snapshot.data()
+          setName(data.name)
+          setImages(data.images)
+          setGender(data.gender)
+          setCategory(data.category)
+          setPrice(data.price)
+          setDescription(data.description)
+
+        })
+      }
+  }, [id])
 
   return (
     <section>
@@ -87,7 +109,7 @@ const ProductEdit = () => {
           required={true}
           options={genders}
           value={gender}
-          select={setGendr}
+          select={setGender}
         ></SelectBox>
         <TextInput
           fullWidth={true}
@@ -104,7 +126,7 @@ const ProductEdit = () => {
           <PrimaryButton
             label={"商品情報を保存"}
             onClick={() =>
-              dispatch(saveProduct(name, description, category, gender, price, images))
+              dispatch(saveProduct(id, name, description, category, gender, price, images))
             }
           />
         </div>

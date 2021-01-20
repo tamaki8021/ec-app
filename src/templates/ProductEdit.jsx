@@ -3,15 +3,16 @@ import { TextInput, SelectBox, PrimaryButton } from "../components/UIkit";
 import { useDispatch } from "react-redux";
 import { saveProduct } from "../reducks/products/operation";
 import ImageArea from "../components/Products/ImageArea";
-import {db} from "../firebase/index"
+import { db } from "../firebase/index";
+import { SetSizeArea } from "../components/Products/index";
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
 
-  let id = window.location.pathname.split('/product/edit')[1];
+  let id = window.location.pathname.split("/product/edit")[1];
 
   if (id !== "") {
-      id = id.split('/')[1]
+    id = id.split("/")[1];
   }
 
   const [name, setName] = useState(""),
@@ -19,6 +20,7 @@ const ProductEdit = () => {
     [category, setCategory] = useState(""),
     [gender, setGender] = useState(""),
     [images, setImages] = useState([]),
+    [sizes, setSizes] = useState([]),
     [price, setPrice] = useState("");
 
   const inputName = useCallback(
@@ -55,21 +57,24 @@ const ProductEdit = () => {
     { id: "male", name: "男性" },
     { id: "female", name: "女性" },
   ];
-  
-  useEffect(()  => {
-      if (id !== "") {
-        db.collection('products').doc(id).get().then(snapshot => {
-          const data = snapshot.data()
-          setName(data.name)
-          setImages(data.images)
-          setGender(data.gender)
-          setCategory(data.category)
-          setPrice(data.price)
-          setDescription(data.description)
 
-        })
-      }
-  }, [id])
+  useEffect(() => {
+    if (id !== "") {
+      db.collection("products")
+        .doc(id)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.data();
+          setName(data.name);
+          setImages(data.images);
+          setGender(data.gender);
+          setCategory(data.category);
+          setPrice(data.price);
+          setDescription(data.description);
+          setSizes(data.sizes);
+        });
+    }
+  }, [id]);
 
   return (
     <section>
@@ -121,12 +126,25 @@ const ProductEdit = () => {
           value={price}
           type={"number"}
         />
-        <div className="module-spacer--medium"></div>
+        <div className="module-spacer--small"></div>
+        <SetSizeArea sizes={sizes} setSizes={setSizes} />
+        <div className="module-spacer--small"></div>
         <div className="center">
           <PrimaryButton
             label={"商品情報を保存"}
             onClick={() =>
-              dispatch(saveProduct(id, name, description, category, gender, price, images))
+              dispatch(
+                saveProduct(
+                  id,
+                  name,
+                  description,
+                  category,
+                  gender,
+                  price,
+                  images,
+                  sizes
+                )
+              )
             }
           />
         </div>

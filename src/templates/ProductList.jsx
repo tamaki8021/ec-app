@@ -13,13 +13,12 @@ const ProductList = () => {
     dispatch(fetchProducts());
   }, []);
 
-  console.log(products)
 
   return (
     <section className="c-section-wrapin">
       <div className="p-grid__row">
         {products.length > 0 &&
-          products.map((product) => <ProductCard key={product.key} />)}
+          products.map((product) => <ProductCard key={product.key} id={product.id} name={product.name} images={product.images} price={product.price} />)}
       </div>
     </section>
   );

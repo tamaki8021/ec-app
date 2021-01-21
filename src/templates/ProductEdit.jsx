@@ -17,11 +17,11 @@ const ProductEdit = () => {
 
   const [name, setName] = useState(""),
     [description, setDescription] = useState(""),
+    [images, setImages] = useState([]),
     [category, setCategory] = useState(""),
     [gender, setGender] = useState(""),
-    [images, setImages] = useState([]),
-    [sizes, setSizes] = useState([]),
-    [price, setPrice] = useState("");
+    [price, setPrice] = useState(""),
+    [sizes, setSizes] = useState([]);
 
   const inputName = useCallback(
     (event) => {

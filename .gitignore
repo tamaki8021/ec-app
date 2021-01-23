@@ -27,4 +27,4 @@ firestore.rules
 src/firebase/config.js
 
 # eslint
-.eslintcache
+eslintcache

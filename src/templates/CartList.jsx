@@ -22,7 +22,7 @@ const CartList = () => {
   const dispatch = useDispatch()
 
   const goToOrder = useCallback(() => {
-    dispatchEvent(push('/order/confirm'))
+    dispatch(push('/order/confirm'))
   }, [])
 
   const backToHome = useCallback(() => {

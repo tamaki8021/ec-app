@@ -63,7 +63,7 @@ const ProductDetail = () => {
       .then((doc) => {
         const data = doc.data();
         setProduct(data);
-      });
+    });
   }, []);
 
   const addedProduct = useCallback((selectedSize) => {
@@ -79,7 +79,7 @@ const ProductDetail = () => {
         quantity: 1,
         size: selectedSize
       }))
-  }, [product])
+  }, [product, dispatch])
 
   return (
     <section className="c-section-wrapin">

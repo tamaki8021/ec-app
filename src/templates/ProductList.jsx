@@ -11,7 +11,7 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react'
 import Divider from '@material-ui/core/Divider'
 import {TextDetail} from '../UIkit'
+import {OrderedProduct} from './index'
 
 const datetimaeToString = (date) => {
   return date.getFullYear() + '_' 
@@ -31,7 +32,9 @@ const OrderHistoryItem = (props) => {
         <TextDetail label={"注文日時"} value={orderedDatetime} />
         <TextDetail label={"発送予定日"} value={shippingDate} />
         <TextDetail label={"注文金額"} value={price} />
-
+        {order.products.length > 0 && (
+          <OrderedProduct products={order.products} />
+        )}
         <div className="module-spacer--extra-small"></div>
         <Divider />
       </div>

@@ -2,6 +2,12 @@ import { createSelector } from "reselect";
 
 const usersSelector = (state) => state.users;
 
+//更新された値のデータをとる処理
+export const getOrdersHistory = createSelector(
+  [usersSelector],
+  (state) => state.orders
+);
+
 export const getInSigenedIn = createSelector(
   [usersSelector],
   (state) => state.isSignedIn

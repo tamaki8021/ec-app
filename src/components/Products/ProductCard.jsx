@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 16,
     },
   },
+  icon: {
+    marginRight: 0,
+    marginLeft: 'auto'
+  },
   media: {
     height: 0,
     paddingTop: "100%",
@@ -40,6 +44,21 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     fontSize: 16,
   },
+  productName: {
+    boxOrient: 'vertical',
+    display: '-webkit-box',
+    fontSize: 14,
+    lineHeight: '18px',
+    overflow: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+      height: 36,
+      lineClamp: 2
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 18,
+      lineClamp: 1
+    }
+  }
 }));
 
 const ProductCard = (props) => {
@@ -75,12 +94,12 @@ const ProductCard = (props) => {
         className={classes.contens}
       >
         <div onClick={() => dispatch(push("/product/" + props.id))}>
-          <Typography>{props.name}</Typography>
+          <Typography className={classes.productName}>{props.name}</Typography>
           <Typography component="p" className={classes.price}>
             ¥{price}
           </Typography>
         </div>
-        <IconButton onClick={handleClick}>
+        <IconButton onClick={handleClick} className={classes.icon} >
           <MoreVertIcon />
         </IconButton>
         <Menu
